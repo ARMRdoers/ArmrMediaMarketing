@@ -1,0 +1,1546 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ARMR Marketing & Media — ARMR Your Brand</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow:ital,wght@0,300;0,400;0,600;0,700;1,400&family=Barlow+Condensed:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+  :root {
+    --red: #D0021B;
+    --red-dark: #9B0014;
+    --red-glow: rgba(208, 2, 27, 0.15);
+    --black: #0A0A0A;
+    --black2: #111111;
+    --black3: #1A1A1A;
+    --gray-dark: #2A2A2A;
+    --gray-mid: #555555;
+    --gray-light: #999999;
+    --gray-pale: #CCCCCC;
+    --white: #F5F5F5;
+    --white-pure: #FFFFFF;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--black);
+    color: var(--white);
+    font-family: 'Barlow', sans-serif;
+    font-weight: 300;
+    overflow-x: hidden;
+    cursor: none;
+  }
+
+  /* CUSTOM CURSOR */
+  .cursor {
+    width: 12px; height: 12px;
+    background: var(--red);
+    border-radius: 50%;
+    position: fixed; top: 0; left: 0;
+    pointer-events: none;
+    z-index: 9999;
+    transform: translate(-50%, -50%);
+  }
+  .cursor-ring {
+    width: 36px; height: 36px;
+    border: 1px solid rgba(208,2,27,0.5);
+    border-radius: 50%;
+    position: fixed; top: 0; left: 0;
+    pointer-events: none;
+    z-index: 9998;
+    transform: translate(-50%, -50%);
+    transition: width 0.2s, height 0.2s, border-color 0.2s;
+  }
+  .cursor-ring.hovered { width: 56px; height: 56px; border-color: var(--red); }
+
+  /* SCROLLBAR */
+  ::-webkit-scrollbar { width: 4px; }
+  ::-webkit-scrollbar-track { background: var(--black2); }
+  ::-webkit-scrollbar-thumb { background: var(--red); }
+
+  /* NAV */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 1000;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 0 60px;
+    height: 72px;
+    background: rgba(10,10,10,0.95);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid rgba(208,2,27,0.2);
+  }
+  .nav-logo {
+    display: flex; align-items: center; gap: 14px;
+    text-decoration: none;
+  }
+  .nav-logo-img {
+    width: 42px; height: 42px;
+    object-fit: contain;
+  }
+  .nav-logo-text {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 24px;
+    letter-spacing: 4px;
+    color: var(--white-pure);
+    line-height: 1;
+  }
+  .nav-logo-text span { color: var(--red); }
+  .nav-logo-sub {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 9px;
+    font-weight: 600;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--gray-mid);
+    margin-top: 2px;
+  }
+  .nav-links {
+    display: flex; gap: 40px; list-style: none;
+  }
+  .nav-links a {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 13px;
+    font-weight: 600;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--gray-pale);
+    text-decoration: none;
+    transition: color 0.2s;
+    position: relative;
+  }
+  .nav-links a::after {
+    content: '';
+    position: absolute;
+    bottom: -4px; left: 0; right: 0;
+    height: 1px;
+    background: var(--red);
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.3s;
+  }
+  .nav-links a:hover { color: var(--white-pure); }
+  .nav-links a:hover::after { transform: scaleX(1); }
+  .nav-cta {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    background: var(--red);
+    color: var(--white-pure);
+    border: none;
+    padding: 10px 28px;
+    cursor: none;
+    text-decoration: none;
+    display: inline-block;
+    transition: background 0.2s;
+    clip-path: polygon(0 0, calc(100% - 8px) 0, 100% 8px, 100% 100%, 8px 100%, 0 calc(100% - 8px));
+  }
+  .nav-cta:hover { background: var(--red-dark); }
+
+  /* HERO */
+  .hero {
+    min-height: 100vh;
+    display: flex; align-items: center;
+    position: relative;
+    overflow: hidden;
+    padding: 72px 60px 0;
+  }
+  .hero-bg {
+    position: absolute; inset: 0;
+    background: var(--black);
+  }
+  .hero-bg-grid {
+    position: absolute; inset: 0;
+    background-image:
+      linear-gradient(rgba(208,2,27,0.04) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(208,2,27,0.04) 1px, transparent 1px);
+    background-size: 80px 80px;
+  }
+  .hero-bg-vignette {
+    position: absolute; inset: 0;
+    background: radial-gradient(ellipse 80% 80% at 50% 50%, transparent 30%, var(--black) 100%);
+  }
+  /* BIG LOGO WATERMARK */
+  .hero-watermark {
+    position: absolute;
+    right: -60px; top: 50%;
+    transform: translateY(-50%);
+    width: 620px; height: 620px;
+    object-fit: contain;
+    opacity: 0.04;
+    pointer-events: none;
+    filter: grayscale(1);
+  }
+  .hero-content {
+    position: relative; z-index: 2;
+    max-width: 820px;
+  }
+  .hero-eyebrow {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 13px;
+    font-weight: 600;
+    letter-spacing: 5px;
+    text-transform: uppercase;
+    color: var(--red);
+    margin-bottom: 24px;
+    display: flex; align-items: center; gap: 12px;
+  }
+  .hero-eyebrow::before {
+    content: '';
+    display: inline-block;
+    width: 32px; height: 1px;
+    background: var(--red);
+  }
+  .hero-title {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(80px, 12vw, 155px);
+    line-height: 0.9;
+    letter-spacing: 2px;
+    color: var(--white-pure);
+    margin-bottom: 8px;
+  }
+  .hero-title .line-red { color: var(--red); }
+  .hero-title .line-outline {
+    -webkit-text-stroke: 1px rgba(255,255,255,0.18);
+    color: transparent;
+  }
+  .hero-sub {
+    font-size: 18px;
+    font-weight: 300;
+    color: var(--gray-light);
+    line-height: 1.6;
+    max-width: 480px;
+    margin: 32px 0 16px;
+  }
+  .hero-sub strong { color: var(--white); font-weight: 600; }
+  /* BUILD YOUR ARMR slogan under subtitle */
+  .hero-slogan {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 22px;
+    letter-spacing: 5px;
+    color: var(--red);
+    margin-bottom: 40px;
+    display: flex; align-items: center; gap: 14px;
+  }
+  .hero-slogan::after {
+    content: '';
+    flex: 1;
+    max-width: 120px;
+    height: 1px;
+    background: linear-gradient(90deg, var(--red), transparent);
+  }
+  .hero-actions { display: flex; gap: 20px; align-items: center; flex-wrap: wrap; }
+  .btn-primary {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 14px;
+    font-weight: 700;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    background: var(--red);
+    color: var(--white-pure);
+    border: none;
+    padding: 16px 40px;
+    cursor: none;
+    text-decoration: none;
+    display: inline-block;
+    transition: background 0.2s, transform 0.15s;
+    clip-path: polygon(0 0, calc(100% - 12px) 0, 100% 12px, 100% 100%, 12px 100%, 0 calc(100% - 12px));
+  }
+  .btn-primary:hover { background: var(--red-dark); transform: translateY(-2px); }
+  .btn-ghost {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 14px;
+    font-weight: 600;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    background: transparent;
+    color: var(--gray-pale);
+    border: 1px solid rgba(255,255,255,0.15);
+    padding: 15px 40px;
+    cursor: none;
+    text-decoration: none;
+    display: inline-flex; align-items: center; gap: 10px;
+    transition: color 0.2s, border-color 0.2s;
+  }
+  .btn-ghost:hover { color: var(--white-pure); border-color: rgba(255,255,255,0.4); }
+  .btn-ghost svg { transition: transform 0.2s; }
+  .btn-ghost:hover svg { transform: translateX(4px); }
+  .hero-scroll {
+    position: absolute;
+    bottom: 40px; left: 60px;
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    color: var(--gray-mid);
+    display: flex; align-items: center; gap: 12px;
+    z-index: 2;
+  }
+  .hero-scroll::before {
+    content: '';
+    display: block;
+    width: 1px; height: 60px;
+    background: linear-gradient(transparent, var(--gray-mid));
+  }
+  .hero-stat-strip {
+    position: absolute;
+    right: 60px; bottom: 60px;
+    display: flex; flex-direction: column; gap: 24px;
+    z-index: 2; text-align: right;
+  }
+  .hero-stat-num {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 42px;
+    line-height: 1;
+    color: var(--white-pure);
+  }
+  .hero-stat-num span { color: var(--red); }
+  .hero-stat-label {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--gray-mid);
+  }
+  .hero-stat-div { width: 100%; height: 1px; background: rgba(255,255,255,0.06); }
+
+  /* MARQUEE */
+  .marquee-wrap {
+    background: var(--red);
+    padding: 14px 0;
+    overflow: hidden;
+    white-space: nowrap;
+  }
+  .marquee-track {
+    display: inline-flex;
+    animation: marquee 22s linear infinite;
+  }
+  .marquee-item {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 15px;
+    letter-spacing: 4px;
+    color: rgba(255,255,255,0.9);
+    margin: 0 40px;
+  }
+  .marquee-dot { color: rgba(255,255,255,0.4); margin: 0 4px; }
+  @keyframes marquee {
+    from { transform: translateX(0); }
+    to { transform: translateX(-50%); }
+  }
+
+  /* SECTIONS */
+  section { padding: 120px 60px; position: relative; }
+  .section-label {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 5px;
+    text-transform: uppercase;
+    color: var(--red);
+    margin-bottom: 16px;
+    display: flex; align-items: center; gap: 12px;
+  }
+  .section-label::before {
+    content: '';
+    display: inline-block;
+    width: 24px; height: 1px;
+    background: var(--red);
+  }
+  .section-title {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(48px, 6vw, 80px);
+    line-height: 0.95;
+    letter-spacing: 1px;
+    color: var(--white-pure);
+    margin-bottom: 24px;
+  }
+  .section-title em { color: var(--red); font-style: normal; }
+
+  /* ABOUT */
+  .about { background: var(--black2); }
+  .about-inner {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 100px;
+    align-items: center;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+  .about-text p {
+    font-size: 17px;
+    font-weight: 300;
+    color: var(--gray-light);
+    line-height: 1.8;
+    margin-bottom: 20px;
+  }
+  .about-text p strong { color: var(--white); font-weight: 600; }
+  .about-visual { position: relative; }
+  .about-box {
+    background: var(--black3);
+    border: 1px solid rgba(208,2,27,0.2);
+    padding: 48px;
+    position: relative;
+  }
+  .about-box::before {
+    content: '';
+    position: absolute;
+    top: -1px; left: 0;
+    width: 60px; height: 3px;
+    background: var(--red);
+  }
+  /* logo inside about box */
+  .about-logo-row {
+    display: flex; align-items: center; gap: 16px;
+    margin-bottom: 28px;
+  }
+  .about-logo-img { width: 52px; height: 52px; object-fit: contain; }
+  .about-logo-name {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 28px;
+    letter-spacing: 4px;
+    color: var(--white-pure);
+    line-height: 1;
+  }
+  .about-logo-name span { color: var(--red); }
+  .about-logo-tagline {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--gray-mid);
+  }
+  .about-manifesto {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 30px;
+    line-height: 1.15;
+    letter-spacing: 1px;
+    color: var(--white-pure);
+    margin-bottom: 32px;
+  }
+  .about-manifesto span { color: var(--red); }
+  .about-tagline-text {
+    font-size: 14px;
+    font-weight: 300;
+    color: var(--gray-mid);
+    line-height: 1.7;
+    border-top: 1px solid rgba(255,255,255,0.06);
+    padding-top: 24px;
+  }
+  .about-corner {
+    position: absolute;
+    bottom: -24px; right: -24px;
+    width: 80px; height: 80px;
+    border: 1px solid rgba(208,2,27,0.15);
+    background: var(--black2);
+  }
+
+  /* SERVICES */
+  .services { background: var(--black); }
+  .services-intro {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 80px;
+    align-items: end;
+    margin-bottom: 80px;
+    max-width: 1200px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  .services-intro p {
+    font-size: 17px;
+    font-weight: 300;
+    color: var(--gray-light);
+    line-height: 1.8;
+  }
+  .services-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1px;
+    background: rgba(255,255,255,0.04);
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+  .service-card {
+    background: var(--black);
+    padding: 48px 40px;
+    position: relative;
+    overflow: hidden;
+    transition: background 0.3s;
+  }
+  .service-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 2px;
+    background: var(--red);
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.4s ease;
+  }
+  .service-card:hover { background: var(--black3); }
+  .service-card:hover::before { transform: scaleX(1); }
+  .service-num {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 48px;
+    color: rgba(208,2,27,0.12);
+    line-height: 1;
+    margin-bottom: 32px;
+    transition: color 0.3s;
+  }
+  .service-card:hover .service-num { color: rgba(208,2,27,0.25); }
+  .service-icon { width: 48px; height: 48px; margin-bottom: 24px; color: var(--red); }
+  .service-name {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 26px;
+    letter-spacing: 1px;
+    color: var(--white-pure);
+    margin-bottom: 16px;
+  }
+  .service-desc {
+    font-size: 15px;
+    font-weight: 300;
+    color: var(--gray-mid);
+    line-height: 1.7;
+    margin-bottom: 32px;
+  }
+  .service-tags { display: flex; flex-wrap: wrap; gap: 8px; }
+  .service-tag {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--gray-mid);
+    border: 1px solid rgba(255,255,255,0.08);
+    padding: 5px 10px;
+    transition: color 0.2s, border-color 0.2s;
+  }
+  .service-card:hover .service-tag { color: var(--red); border-color: rgba(208,2,27,0.3); }
+
+  /* PROCESS */
+  .process { background: var(--black2); }
+  .process-inner { max-width: 1200px; margin: 0 auto; text-align: center; }
+  .process-steps {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 0;
+    margin-top: 80px;
+    position: relative;
+  }
+  .process-steps::before {
+    content: '';
+    position: absolute;
+    top: 28px; left: 10%; right: 10%;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--red), var(--red), transparent);
+    opacity: 0.3;
+  }
+  .process-inner .section-label { justify-content: center; }
+  .process-inner .section-title { text-align: center; }
+  .process-step { padding: 0 32px; border-right: 1px solid rgba(255,255,255,0.04); text-align: center; }
+  .process-step:last-child { border-right: none; }
+  .process-step-num {
+    width: 56px; height: 56px;
+    border: 1px solid rgba(208,2,27,0.4);
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    margin: 0 auto 32px;
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 22px;
+    color: var(--red);
+    position: relative; z-index: 1;
+    background: var(--black2);
+  }
+  .process-step-title {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 22px;
+    letter-spacing: 1px;
+    color: var(--white-pure);
+    margin-bottom: 12px;
+  }
+  .process-step-desc { font-size: 14px; font-weight: 300; color: var(--gray-mid); line-height: 1.7; }
+
+  /* WHY ARMR */
+  .why { background: var(--black); }
+  .why-inner {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 5fr 4fr;
+    gap: 100px;
+    align-items: center;
+  }
+  .why-list { margin-top: 48px; }
+  .why-item {
+    display: flex; gap: 24px; align-items: flex-start;
+    padding: 28px 0;
+    border-bottom: 1px solid rgba(255,255,255,0.04);
+  }
+  .why-item:last-child { border-bottom: none; }
+  .why-item-num {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 14px;
+    color: var(--red);
+    letter-spacing: 2px;
+    min-width: 32px;
+    padding-top: 2px;
+  }
+  .why-item-title {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 18px;
+    font-weight: 700;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    color: var(--white);
+    margin-bottom: 8px;
+  }
+  .why-item-desc { font-size: 14px; font-weight: 300; color: var(--gray-mid); line-height: 1.7; }
+  .why-visual { position: relative; display: flex; align-items: center; justify-content: center; }
+  .why-logo-bg {
+    width: 260px; height: 260px;
+    object-fit: contain;
+    opacity: 0.08;
+    filter: grayscale(1);
+  }
+  .why-badge {
+    position: absolute;
+    background: var(--red);
+    padding: 20px 32px;
+    text-align: center;
+  }
+  .why-badge-num {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 52px;
+    line-height: 1;
+    color: var(--white-pure);
+  }
+  .why-badge-text {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.7);
+  }
+
+  /* INDUSTRIES */
+  .industries { background: var(--black3); padding: 80px 60px; }
+  .industries-inner { max-width: 1200px; margin: 0 auto; }
+  .industries-header {
+    display: flex; justify-content: center; align-items: center; flex-direction: column;
+    margin-bottom: 60px;
+    text-align: center;
+    gap: 28px;
+  }
+  .industries-header .section-label { justify-content: center; }
+  .industries-grid {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 1px;
+    background: rgba(255,255,255,0.04);
+  }
+  .industry-item {
+    background: var(--black3);
+    padding: 32px 24px;
+    text-align: center;
+    transition: background 0.3s;
+  }
+  .industry-item:hover { background: var(--black2); }
+  .industry-icon { font-size: 28px; margin-bottom: 12px; display: block; }
+  .industry-name {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--gray-mid);
+    transition: color 0.3s;
+  }
+  .industry-item:hover .industry-name { color: var(--white); }
+
+  /* CTA BAND */
+  .cta-band {
+    background: var(--red);
+    padding: 80px 60px;
+    display: flex; align-items: center; justify-content: space-between;
+    gap: 40px; flex-wrap: wrap;
+  }
+  .cta-band-left {}
+  .cta-band-title {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(36px, 5vw, 64px);
+    line-height: 0.95;
+    color: var(--white-pure);
+  }
+  .cta-band-title em { font-style: normal; color: rgba(255,255,255,0.35); }
+  .cta-band-sub {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 13px;
+    font-weight: 600;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.55);
+    margin-top: 10px;
+  }
+  .cta-band-actions { display: flex; gap: 16px; align-items: center; flex-shrink: 0; }
+  .btn-white {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 14px;
+    font-weight: 700;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    background: var(--white-pure);
+    color: var(--red);
+    border: none;
+    padding: 16px 40px;
+    cursor: none;
+    text-decoration: none;
+    display: inline-block;
+    transition: background 0.2s;
+    clip-path: polygon(0 0, calc(100% - 10px) 0, 100% 10px, 100% 100%, 10px 100%, 0 calc(100% - 10px));
+  }
+  .btn-white:hover { background: var(--gray-pale); }
+  .btn-outline-white {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 14px;
+    font-weight: 600;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    background: transparent;
+    color: rgba(255,255,255,0.7);
+    border: 1px solid rgba(255,255,255,0.3);
+    padding: 15px 40px;
+    cursor: none;
+    text-decoration: none;
+    display: inline-block;
+    transition: color 0.2s, border-color 0.2s;
+  }
+  .btn-outline-white:hover { color: var(--white-pure); border-color: rgba(255,255,255,0.7); }
+
+  /* CURSOR INVERT ON RED BACKGROUNDS */
+  .cursor-inverted { background: #FFFFFF !important; }
+  .cursor-ring-inverted { border-color: rgba(255,255,255,0.7) !important; }
+  .cursor-ring-inverted.hovered { border-color: #FFFFFF !important; }
+
+  /* CENTERED SECTION HELPERS */
+  .section-centered { text-align: center; }
+  .section-centered .section-label { justify-content: center; }
+
+  /* CONTACT */
+  .contact { background: var(--black2); }
+  .contact-inner {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 100px;
+  }
+  .contact-info p {
+    font-size: 17px;
+    font-weight: 300;
+    color: var(--gray-light);
+    line-height: 1.8;
+    margin-bottom: 40px;
+  }
+  .contact-details { display: flex; flex-direction: column; gap: 20px; }
+  .contact-detail { display: flex; gap: 16px; align-items: center; }
+  .contact-detail-icon {
+    width: 40px; height: 40px;
+    border: 1px solid rgba(208,2,27,0.3);
+    display: flex; align-items: center; justify-content: center;
+    color: var(--red);
+    font-size: 18px;
+    flex-shrink: 0;
+  }
+  .contact-detail-label {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--gray-mid);
+    margin-bottom: 2px;
+  }
+  .contact-detail-text {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 15px;
+    font-weight: 600;
+    letter-spacing: 1px;
+    color: var(--gray-pale);
+  }
+  .contact-detail-text a { color: var(--gray-pale); text-decoration: none; transition: color 0.2s; }
+  .contact-detail-text a:hover { color: var(--red); }
+
+  .contact-form { display: flex; flex-direction: column; gap: 20px; }
+  .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+  .form-group { display: flex; flex-direction: column; gap: 8px; }
+  .form-label {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--gray-mid);
+  }
+  .form-input, .form-select, .form-textarea {
+    background: var(--black3);
+    border: 1px solid rgba(255,255,255,0.06);
+    color: var(--white);
+    font-family: 'Barlow', sans-serif;
+    font-size: 15px;
+    font-weight: 300;
+    padding: 14px 16px;
+    outline: none;
+    transition: border-color 0.2s;
+    width: 100%;
+  }
+  .form-input::placeholder, .form-textarea::placeholder { color: var(--gray-mid); }
+  .form-input:focus, .form-select:focus, .form-textarea:focus { border-color: rgba(208,2,27,0.5); }
+  .form-select {
+    appearance: none;
+    cursor: none;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%23555' fill='none' stroke-width='1.5'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 16px center;
+  }
+  .form-select option { background: var(--black3); color: var(--white); }
+  .form-textarea { resize: vertical; min-height: 120px; line-height: 1.6; }
+  .form-submit {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 14px;
+    font-weight: 700;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    background: var(--red);
+    color: var(--white-pure);
+    border: none;
+    padding: 18px 48px;
+    cursor: none;
+    width: 100%;
+    transition: background 0.2s;
+    clip-path: polygon(0 0, calc(100% - 12px) 0, 100% 12px, 100% 100%, 12px 100%, 0 calc(100% - 12px));
+  }
+  .form-submit:hover { background: var(--red-dark); }
+
+  /* FOOTER */
+  footer {
+    background: var(--black);
+    border-top: 1px solid rgba(255,255,255,0.04);
+    padding: 60px;
+  }
+  .footer-inner {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr 1fr;
+    gap: 60px;
+    margin-bottom: 60px;
+  }
+  .footer-logo-row {
+    display: flex; align-items: center; gap: 14px;
+    margin-bottom: 16px;
+  }
+  .footer-logo-img { width: 44px; height: 44px; object-fit: contain; }
+  .footer-brand-name {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 28px;
+    letter-spacing: 4px;
+    color: var(--white-pure);
+    line-height: 1;
+  }
+  .footer-brand-name span { color: var(--red); }
+  .footer-brand-sub {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 9px;
+    font-weight: 700;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--gray-mid);
+  }
+  .footer-tagline { font-size: 14px; font-weight: 300; color: var(--gray-mid); line-height: 1.7; margin-bottom: 28px; }
+  .footer-socials { display: flex; gap: 12px; }
+  .footer-social {
+    width: 36px; height: 36px;
+    border: 1px solid rgba(255,255,255,0.08);
+    display: flex; align-items: center; justify-content: center;
+    color: var(--gray-mid);
+    text-decoration: none;
+    font-size: 14px;
+    transition: color 0.2s, border-color 0.2s;
+  }
+  .footer-social:hover { color: var(--red); border-color: rgba(208,2,27,0.4); }
+  .footer-col-title {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    color: var(--white);
+    margin-bottom: 24px;
+  }
+  .footer-links { display: flex; flex-direction: column; gap: 12px; }
+  .footer-links a {
+    font-size: 14px;
+    font-weight: 300;
+    color: var(--gray-mid);
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+  .footer-links a:hover { color: var(--red); }
+  .footer-bottom {
+    display: flex; justify-content: space-between; align-items: center;
+    border-top: 1px solid rgba(255,255,255,0.04);
+    padding-top: 32px;
+    max-width: 1200px;
+  }
+  .footer-copy { font-size: 13px; font-weight: 300; color: var(--gray-mid); }
+  .footer-copy span { color: var(--red); }
+  .footer-credits {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 5px;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.06);
+  }
+
+  /* ANIMATIONS */
+  .fade-up {
+    opacity: 0;
+    transform: translateY(40px);
+    transition: opacity 0.7s ease, transform 0.7s ease;
+  }
+  .fade-up.visible { opacity: 1; transform: translateY(0); }
+  .fade-up-d1 { transition-delay: 0.1s; }
+  .fade-up-d2 { transition-delay: 0.2s; }
+  .fade-up-d3 { transition-delay: 0.3s; }
+  .fade-up-d4 { transition-delay: 0.4s; }
+
+  @media (max-width: 1024px) {
+    nav { padding: 0 32px; }
+    .nav-links { display: none; }
+    section { padding: 80px 32px; }
+    .hero { padding: 72px 32px 0; }
+    .hero-stat-strip { display: none; }
+    .hero-watermark { display: none; }
+    .about-inner { grid-template-columns: 1fr; gap: 48px; }
+    .services-intro { grid-template-columns: 1fr; gap: 24px; }
+    .services-grid { grid-template-columns: 1fr 1fr; }
+    .process-steps { grid-template-columns: 1fr 1fr; }
+    .process-steps::before { display: none; }
+    .why-inner { grid-template-columns: 1fr; }
+    .why-visual { display: none; }
+    .industries-grid { grid-template-columns: repeat(3, 1fr); }
+    .contact-inner { grid-template-columns: 1fr; gap: 48px; }
+    .footer-inner { grid-template-columns: 1fr 1fr; }
+    .cta-band { flex-direction: column; text-align: center; }
+  }
+  @media (max-width: 640px) {
+    .services-grid { grid-template-columns: 1fr; }
+    .process-steps { grid-template-columns: 1fr; }
+    .form-row { grid-template-columns: 1fr; }
+    .footer-inner { grid-template-columns: 1fr; }
+    .industries-grid { grid-template-columns: repeat(2, 1fr); }
+    .footer-bottom { flex-direction: column; gap: 12px; text-align: center; }
+    .hero-title { font-size: 72px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="cursor" id="cursor"></div>
+<div class="cursor-ring" id="cursor-ring"></div>
+
+<!-- NAV -->
+<nav>
+  <a href="#" class="nav-logo">
+    <img class="nav-logo-img" src="LOGO_PLACEHOLDER" alt="ARMR Logo">
+    <div>
+      <div class="nav-logo-text">ARM<span>R</span></div>
+      <div class="nav-logo-sub">Marketing & Media</div>
+    </div>
+  </a>
+  <ul class="nav-links">
+    <li><a href="#services">Services</a></li>
+    <li><a href="#process">Process</a></li>
+    <li><a href="#about">About</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+  <a href="#contact" class="nav-cta">Book a Call</a>
+</nav>
+
+<!-- HERO -->
+<section class="hero" style="padding-top: 72px;">
+  <div class="hero-bg">
+    <div class="hero-bg-grid"></div>
+    <div class="hero-bg-vignette"></div>
+  </div>
+  <img class="hero-watermark" src="LOGO_PLACEHOLDER" alt="">
+  <div class="hero-content">
+    <div class="hero-eyebrow">ARMR Marketing & Media — Holmdel, NJ</div>
+    <h1 class="hero-title">
+      <div class="line-red">ARMR</div>
+      <div>YOUR</div>
+      <div class="line-outline">BRAND</div>
+    </h1>
+    <p class="hero-sub">
+      Local businesses deserve <strong>agency-level firepower.</strong> We build digital presences that don't just exist — they <strong>dominate.</strong>
+    </p>
+    <div class="hero-slogan">BUILD YOUR ARMR</div>
+    <div class="hero-actions">
+      <a href="#contact" class="btn-primary">Get Armed — Book a Call</a>
+      <a href="#services" class="btn-ghost">
+        See Our Services
+        <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+          <path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </a>
+    </div>
+  </div>
+  <div class="hero-scroll">SCROLL</div>
+  <div class="hero-stat-strip">
+    <div>
+      <div class="hero-stat-num">100<span>%</span></div>
+      <div class="hero-stat-label">Local Focus</div>
+    </div>
+    <div class="hero-stat-div"></div>
+    <div>
+      <div class="hero-stat-num">2<span>X</span></div>
+      <div class="hero-stat-label">Avg. Engagement Lift</div>
+    </div>
+    <div class="hero-stat-div"></div>
+    <div>
+      <div class="hero-stat-num">NJ<span>.</span></div>
+      <div class="hero-stat-label">Based & Built</div>
+    </div>
+  </div>
+</section>
+
+<!-- MARQUEE -->
+<div class="marquee-wrap">
+  <div class="marquee-track">
+    <span class="marquee-item">ARMR YOUR BRAND</span><span class="marquee-dot">✦</span>
+    <span class="marquee-item">SOCIAL MEDIA MANAGEMENT</span><span class="marquee-dot">✦</span>
+    <span class="marquee-item">WEBSITE DEVELOPMENT</span><span class="marquee-dot">✦</span>
+    <span class="marquee-item">BUILD YOUR ARMR</span><span class="marquee-dot">✦</span>
+    <span class="marquee-item">CONTENT CREATION</span><span class="marquee-dot">✦</span>
+    <span class="marquee-item">BRAND STRATEGY</span><span class="marquee-dot">✦</span>
+    <span class="marquee-item">ARMR YOUR BRAND</span><span class="marquee-dot">✦</span>
+    <span class="marquee-item">VIDEO & REELS EDITING</span><span class="marquee-dot">✦</span>
+    <span class="marquee-item">BUILD YOUR ARMR</span><span class="marquee-dot">✦</span>
+    <span class="marquee-item">SOCIAL MEDIA MANAGEMENT</span><span class="marquee-dot">✦</span>
+    <span class="marquee-item">WEBSITE DEVELOPMENT</span><span class="marquee-dot">✦</span>
+    <span class="marquee-item">ARMR YOUR BRAND</span><span class="marquee-dot">✦</span>
+    <span class="marquee-item">CONTENT CREATION</span><span class="marquee-dot">✦</span>
+    <span class="marquee-item">BRAND STRATEGY</span><span class="marquee-dot">✦</span>
+    <span class="marquee-item">VIDEO & REELS EDITING</span><span class="marquee-dot">✦</span>
+    <span class="marquee-item">BUILD YOUR ARMR</span><span class="marquee-dot">✦</span>
+  </div>
+</div>
+
+<!-- ABOUT -->
+<section class="about" id="about">
+  <div class="about-inner">
+    <div class="about-text fade-up section-centered">
+      <div class="section-label">About ARMR</div>
+      <h2 class="section-title">Built <em>Different</em><br>By Design</h2>
+      <p>ARMR Marketing & Media isn't your typical agency. Founded by Jon and Omar Ali, we built this from the ground up — not because it was easy, but because local businesses deserve better.</p>
+      <p>We operate out of Holmdel, NJ with a singular mission: <strong>give local brands the digital weapons to compete, win, and grow.</strong> No fluff. No filler. Just results-driven marketing that actually moves the needle.</p>
+      <p>From day-one strategy sessions to fully executed social media rollouts, every deliverable we produce is built with the same intensity we bring to everything we do.</p>
+      <a href="#contact" class="btn-primary" style="margin-top: 16px;">Work With Us</a>
+    </div>
+    <div class="about-visual fade-up fade-up-d2">
+      <div class="about-box">
+        <div class="about-logo-row">
+          <img class="about-logo-img" src="LOGO_PLACEHOLDER" alt="ARMR Logo">
+          <div>
+            <div class="about-logo-name">ARM<span>R</span></div>
+            <div class="about-logo-tagline">Marketing & Media</div>
+          </div>
+        </div>
+        <div class="about-manifesto">
+          "We don't just manage<br>your presence. We<br><span>build your armor.</span>"
+        </div>
+        <p class="about-tagline-text">
+          Every local business has a story worth telling. Our job is to make sure the right people hear it — loudly, consistently, and on every platform that matters.
+        </p>
+      </div>
+      <div class="about-corner"></div>
+    </div>
+  </div>
+</section>
+
+<!-- SERVICES -->
+<section class="services" id="services">
+  <div class="services-intro fade-up">
+    <div class="section-centered">
+      <div class="section-label">What We Do</div>
+      <h2 class="section-title">Five Ways<br>We <em>Dominate</em><br>For You</h2>
+    </div>
+    <div style="display: flex; flex-direction: column; justify-content: flex-end;">
+      <p>Every service we offer is built around one goal: making your brand impossible to ignore. We only offer what we can execute at the highest level.</p>
+      <a href="#contact" class="btn-ghost" style="margin-top: 28px; display: inline-flex; width: fit-content;">
+        Get a Custom Quote
+        <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+          <path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </a>
+    </div>
+  </div>
+  <div class="services-grid">
+    <div class="service-card fade-up">
+      <div class="service-num">01</div>
+      <svg class="service-icon" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.5">
+        <rect x="4" y="8" width="40" height="28" rx="2"/>
+        <path d="M24 22l-4 4 4 4M30 22l4 4-4 4"/>
+        <circle cx="24" cy="26" r="3" fill="currentColor" opacity="0.3" stroke="none"/>
+      </svg>
+      <div class="service-name">Social Media Management</div>
+      <p class="service-desc">Full-service social management: content calendars, caption writing, posting, engagement, and monthly performance reporting. Your accounts run like a machine.</p>
+      <div class="service-tags">
+        <span class="service-tag">Instagram</span><span class="service-tag">Facebook</span>
+        <span class="service-tag">TikTok</span><span class="service-tag">Monthly Plans</span>
+      </div>
+    </div>
+    <div class="service-card fade-up fade-up-d1">
+      <div class="service-num">02</div>
+      <svg class="service-icon" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.5">
+        <rect x="6" y="10" width="36" height="26" rx="2"/>
+        <path d="M14 16h20M14 22h14M14 28h8"/>
+        <rect x="30" y="20" width="8" height="10" rx="1" fill="currentColor" opacity="0.25" stroke="none"/>
+      </svg>
+      <div class="service-name">Website Development</div>
+      <p class="service-desc">Custom websites that convert. We design and develop fast, mobile-first sites built to represent your brand and turn visitors into paying customers.</p>
+      <div class="service-tags">
+        <span class="service-tag">Custom Design</span><span class="service-tag">SEO-Ready</span>
+        <span class="service-tag">Mobile-First</span><span class="service-tag">CMS</span>
+      </div>
+    </div>
+    <div class="service-card fade-up fade-up-d2">
+      <div class="service-num">03</div>
+      <svg class="service-icon" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.5">
+        <circle cx="24" cy="24" r="16"/>
+        <path d="M20 18l10 6-10 6V18z" fill="currentColor" opacity="0.3" stroke="none"/>
+        <path d="M20 18l10 6-10 6V18z"/>
+      </svg>
+      <div class="service-name">Content Creation & Production</div>
+      <p class="service-desc">Scroll-stopping content that earns attention. We plan, produce, and deliver images, graphics, and written content built for the feed — and built for your audience.</p>
+      <div class="service-tags">
+        <span class="service-tag">Graphic Design</span><span class="service-tag">Copywriting</span>
+        <span class="service-tag">Photography</span><span class="service-tag">Content Days</span>
+      </div>
+    </div>
+    <div class="service-card fade-up">
+      <div class="service-num">04</div>
+      <svg class="service-icon" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.5">
+        <path d="M24 8l4 8 9 1.3-6.5 6.3 1.5 9L24 28l-8 4.6 1.5-9L11 17.3l9-1.3z"/>
+        <path d="M12 36l4-4M36 36l-4-4M12 12l4 4M36 12l-4 4" opacity="0.5"/>
+      </svg>
+      <div class="service-name">Brand Strategy & Identity</div>
+      <p class="service-desc">Before we execute, we strategize. We define your brand voice, visual identity, and market positioning so everything we build has a foundation that lasts.</p>
+      <div class="service-tags">
+        <span class="service-tag">Brand Voice</span><span class="service-tag">Visual Identity</span>
+        <span class="service-tag">Positioning</span><span class="service-tag">Messaging</span>
+      </div>
+    </div>
+    <div class="service-card fade-up fade-up-d1">
+      <div class="service-num">05</div>
+      <svg class="service-icon" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.5">
+        <rect x="8" y="12" width="32" height="20" rx="2"/>
+        <path d="M8 32l8-8 6 4 8-10 6 8" opacity="0.5"/>
+        <path d="M20 18l8 4-8 4V18z" fill="currentColor" opacity="0.4" stroke="none"/>
+      </svg>
+      <div class="service-name">Video & Reels Editing</div>
+      <p class="service-desc">Short-form video is the most powerful real estate on the internet. We edit, caption, and optimize Reels and TikTok content that demands attention and drives follows.</p>
+      <div class="service-tags">
+        <span class="service-tag">Reels</span><span class="service-tag">TikTok</span>
+        <span class="service-tag">Captions</span><span class="service-tag">Hooks</span>
+      </div>
+    </div>
+    <div class="service-card fade-up fade-up-d2" style="display: flex; flex-direction: column; justify-content: center; align-items: flex-start; background: var(--black3);">
+      <div style="font-family: 'Bebas Neue', sans-serif; font-size: 22px; color: var(--white-pure); margin-bottom: 16px;">Not sure what you need?</div>
+      <p style="font-size: 14px; font-weight: 300; color: var(--gray-mid); line-height: 1.7; margin-bottom: 28px;">We'll audit your current digital presence and tell you exactly what to fix — for free.</p>
+      <a href="#contact" class="btn-primary">Get a Free Audit</a>
+    </div>
+  </div>
+</section>
+
+<!-- PROCESS -->
+<section class="process" id="process">
+  <div class="process-inner">
+    <div class="fade-up section-centered">
+      <div class="section-label">How It Works</div>
+      <h2 class="section-title">Four Steps<br>To <em>Total</em> Control</h2>
+    </div>
+    <div class="process-steps">
+      <div class="process-step fade-up">
+        <div class="process-step-num">01</div>
+        <div class="process-step-title">Discovery Call</div>
+        <p class="process-step-desc">We learn your business, goals, competitors, and current gaps. No generic templates — this is a real conversation.</p>
+      </div>
+      <div class="process-step fade-up fade-up-d1">
+        <div class="process-step-num">02</div>
+        <div class="process-step-title">Strategy Build</div>
+        <p class="process-step-desc">We build a custom digital marketing roadmap tailored specifically to your business and your audience.</p>
+      </div>
+      <div class="process-step fade-up fade-up-d2">
+        <div class="process-step-num">03</div>
+        <div class="process-step-title">Execute & Launch</div>
+        <p class="process-step-desc">We build, create, post, and launch. Every asset, every caption, every page — done right and on schedule.</p>
+      </div>
+      <div class="process-step fade-up fade-up-d3">
+        <div class="process-step-num">04</div>
+        <div class="process-step-title">Optimize & Grow</div>
+        <p class="process-step-desc">Monthly reporting, strategy adjustments, and continuous improvement. We don't set it and forget it.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- WHY ARMR -->
+<section class="why">
+  <div class="why-inner">
+    <div>
+      <div class="section-label fade-up section-centered">Why ARMR</div>
+      <h2 class="section-title fade-up section-centered">The Edge<br>That <em>Matters</em></h2>
+      <div class="why-list">
+        <div class="why-item fade-up">
+          <div class="why-item-num">01</div>
+          <div>
+            <div class="why-item-title">Local Business Is Our Lane</div>
+            <p class="why-item-desc">We exclusively serve local and small businesses. No distractions, no enterprise playbooks — just focused execution for businesses like yours.</p>
+          </div>
+        </div>
+        <div class="why-item fade-up fade-up-d1">
+          <div class="why-item-num">02</div>
+          <div>
+            <div class="why-item-title">We Only Offer What We Can Execute</div>
+            <p class="why-item-desc">No bloated service lists. We specialize because that's where we deliver the best results — period.</p>
+          </div>
+        </div>
+        <div class="why-item fade-up fade-up-d2">
+          <div class="why-item-num">03</div>
+          <div>
+            <div class="why-item-title">Strategy Before Everything</div>
+            <p class="why-item-desc">Every engagement starts with a real strategy session. We build a foundation that gives every piece of content a purpose.</p>
+          </div>
+        </div>
+        <div class="why-item fade-up fade-up-d3">
+          <div class="why-item-num">04</div>
+          <div>
+            <div class="why-item-title">You Own It All</div>
+            <p class="why-item-desc">Every account, asset, and piece of content we create belongs to you. No lock-in tactics. We build for your future, not ours.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="why-visual">
+      <img class="why-logo-bg" src="LOGO_PLACEHOLDER" alt="">
+      <div class="why-badge">
+        <div class="why-badge-num">NJ</div>
+        <div class="why-badge-text">Built & Based</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- INDUSTRIES -->
+<section class="industries">
+  <div class="industries-inner">
+    <div class="industries-header fade-up">
+      <div>
+        <div class="section-label">Who We Serve</div>
+        <h2 class="section-title" style="font-size: clamp(36px, 4vw, 56px);">Industries We <em>Arm</em></h2>
+      </div>
+      <a href="#contact" class="btn-ghost">
+        Is Your Industry Here?
+        <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+          <path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </a>
+    </div>
+    <div class="industries-grid fade-up">
+      <div class="industry-item"><span class="industry-icon">💇</span><div class="industry-name">Salons & Beauty</div></div>
+      <div class="industry-item"><span class="industry-icon">🏥</span><div class="industry-name">Medical & Health</div></div>
+      <div class="industry-item"><span class="industry-icon">🥊</span><div class="industry-name">Fitness & Gyms</div></div>
+      <div class="industry-item"><span class="industry-icon">🍽️</span><div class="industry-name">Restaurants & Food</div></div>
+      <div class="industry-item"><span class="industry-icon">🏡</span><div class="industry-name">Real Estate</div></div>
+      <div class="industry-item"><span class="industry-icon">⚖️</span><div class="industry-name">Legal & Finance</div></div>
+      <div class="industry-item"><span class="industry-icon">🔧</span><div class="industry-name">Home Services</div></div>
+      <div class="industry-item"><span class="industry-icon">🛍️</span><div class="industry-name">Retail & Boutiques</div></div>
+      <div class="industry-item"><span class="industry-icon">📚</span><div class="industry-name">Education & Coaching</div></div>
+      <div class="industry-item"><span class="industry-icon">✦</span><div class="industry-name">And More...</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA BAND -->
+<div class="cta-band fade-up">
+  <div class="cta-band-left">
+    <div class="cta-band-title">
+      Ready to<br><em>build your</em><br>ARMR?
+    </div>
+    <div class="cta-band-sub">ARMR Your Brand — Starting Today</div>
+  </div>
+  <div class="cta-band-actions">
+    <a href="#contact" class="btn-white">Book a Free Call</a>
+    <a href="tel:7322984259" class="btn-outline-white">Call Us Now</a>
+  </div>
+</div>
+
+<!-- CONTACT -->
+<section class="contact" id="contact">
+  <div class="contact-inner">
+    <div class="contact-info fade-up">
+      <div class="section-label" style="justify-content:center;">Let's Talk</div>
+      <h2 class="section-title" style="text-align:center;">Start the<br><em>Conversation</em></h2>
+      <p>Tell us about your business and what you're trying to accomplish. We'll get back to you within 24 hours with a plan of attack.</p>
+      <div class="contact-details">
+        <div class="contact-detail">
+          <div class="contact-detail-icon">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+              <path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.7 9.81 19.79 19.79 0 01.67 1.22 2 2 0 012.66 0h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.91 7.64a16 16 0 006.29 6.29l1-1a2 2 0 012.11-.45 12.84 12.84 0 002.81.7A2 2 0 0122 16.92z"/>
+            </svg>
+          </div>
+          <div>
+            <div class="contact-detail-label">Phone</div>
+            <div class="contact-detail-text"><a href="tel:7322984259">(732) 298-4259</a></div>
+          </div>
+        </div>
+        <div class="contact-detail">
+          <div class="contact-detail-icon">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+              <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
+              <polyline points="22,6 12,13 2,6"/>
+            </svg>
+          </div>
+          <div>
+            <div class="contact-detail-label">Email</div>
+            <div class="contact-detail-text"><a href="mailto:doers@armrstudios.com">doers@armrstudios.com</a></div>
+          </div>
+        </div>
+        <div class="contact-detail">
+          <div class="contact-detail-icon">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+              <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/>
+              <circle cx="12" cy="10" r="3"/>
+            </svg>
+          </div>
+          <div>
+            <div class="contact-detail-label">Location</div>
+            <div class="contact-detail-text">Holmdel, NJ — Serving All of New Jersey</div>
+          </div>
+        </div>
+        <div class="contact-detail">
+          <div class="contact-detail-icon">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+              <rect x="2" y="2" width="20" height="20" rx="5"/>
+              <path d="M16 11.37A4 4 0 1112.63 8 4 4 0 0116 11.37z"/>
+              <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/>
+            </svg>
+          </div>
+          <div>
+            <div class="contact-detail-label">Instagram</div>
+            <div class="contact-detail-text">@armr.media</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="contact-form fade-up fade-up-d2">
+      <div class="form-row">
+        <div class="form-group">
+          <label class="form-label">First Name</label>
+          <input type="text" class="form-input" placeholder="First name">
+        </div>
+        <div class="form-group">
+          <label class="form-label">Last Name</label>
+          <input type="text" class="form-input" placeholder="Last name">
+        </div>
+      </div>
+      <div class="form-group">
+        <label class="form-label">Business Name</label>
+        <input type="text" class="form-input" placeholder="Your Business Name">
+      </div>
+      <div class="form-row">
+        <div class="form-group">
+          <label class="form-label">Email Address</label>
+          <input type="email" class="form-input" placeholder="you@yourbusiness.com">
+        </div>
+        <div class="form-group">
+          <label class="form-label">Phone Number</label>
+          <input type="tel" class="form-input" placeholder="(XXX) XXX-XXXX">
+        </div>
+      </div>
+      <div class="form-group">
+        <label class="form-label">Service You're Interested In</label>
+        <select class="form-select">
+          <option value="" disabled selected>Select a service...</option>
+          <option>Social Media Management</option>
+          <option>Website Development</option>
+          <option>Content Creation & Production</option>
+          <option>Brand Strategy & Identity</option>
+          <option>Video & Reels Editing</option>
+          <option>Full-Service Package</option>
+          <option>Not Sure — I Need Guidance</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label class="form-label">Tell Us About Your Business</label>
+        <textarea class="form-textarea" placeholder="What does your business do? What are your goals? What's not working right now?"></textarea>
+      </div>
+      <button type="button" class="form-submit" id="submitBtn">Send It — We'll Be In Touch</button>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-inner">
+    <div>
+      <div class="footer-logo-row">
+        <img class="footer-logo-img" src="LOGO_PLACEHOLDER" alt="ARMR Logo">
+        <div>
+          <div class="footer-brand-name">ARM<span>R</span></div>
+          <div class="footer-brand-sub">Marketing & Media</div>
+        </div>
+      </div>
+      <p class="footer-tagline">Digital marketing and media built for local businesses that want to dominate their market. Based in Holmdel, NJ.<br><br><strong style="color: var(--gray-pale);">ARMR Your Brand. Build Your ARMR.</strong></p>
+      <div class="footer-socials">
+        <a href="#" class="footer-social" title="Instagram">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+            <rect x="2" y="2" width="20" height="20" rx="5"/>
+            <path d="M16 11.37A4 4 0 1112.63 8 4 4 0 0116 11.37z"/>
+            <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/>
+          </svg>
+        </a>
+        <a href="#" class="footer-social" title="Facebook">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+            <path d="M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z"/>
+          </svg>
+        </a>
+        <a href="#" class="footer-social" title="LinkedIn">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+            <path d="M16 8a6 6 0 016 6v7h-4v-7a2 2 0 00-2-2 2 2 0 00-2 2v7h-4v-7a6 6 0 016-6z"/>
+            <rect x="2" y="9" width="4" height="12"/>
+            <circle cx="4" cy="4" r="2"/>
+          </svg>
+        </a>
+      </div>
+    </div>
+    <div>
+      <div class="footer-col-title">Services</div>
+      <div class="footer-links">
+        <a href="#services">Social Media Management</a>
+        <a href="#services">Website Development</a>
+        <a href="#services">Content Creation</a>
+        <a href="#services">Brand Strategy</a>
+        <a href="#services">Video & Reels Editing</a>
+      </div>
+    </div>
+    <div>
+      <div class="footer-col-title">Company</div>
+      <div class="footer-links">
+        <a href="#about">About ARMR</a>
+        <a href="#process">Our Process</a>
+        <a href="#contact">Contact</a>
+        <a href="#contact">Book a Call</a>
+      </div>
+    </div>
+    <div>
+      <div class="footer-col-title">Contact</div>
+      <div class="footer-links">
+        <a href="tel:7322984259">(732) 298-4259</a>
+        <a href="mailto:doers@armrstudios.com">doers@armrstudios.com</a>
+        <a href="#">Holmdel, NJ</a>
+        <a href="#">Serving All of NJ</a>
+      </div>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <div class="footer-copy">© 2025 <span>ARMR</span> Marketing & Media. All rights reserved.</div>
+    <div class="footer-credits">ARMR YOUR BRAND — BUILD YOUR ARMR</div>
+  </div>
+</footer>
+
+<script>
+  const LOGO_B64 = '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';
+  const logoSrc = 'data:image/jpeg;base64,' + LOGO_B64;
+  document.querySelectorAll('img[src="LOGO_PLACEHOLDER"]').forEach(img => {
+    img.src = logoSrc;
+  });
+
+  const cursor = document.getElementById('cursor');
+  const ring = document.getElementById('cursor-ring');
+  let mx = 0, my = 0, rx = 0, ry = 0;
+
+  // Elements with red backgrounds where cursor should flip white
+  const redSections = [
+    document.querySelector('.marquee-wrap'),
+    document.querySelector('.cta-band'),
+    document.querySelector('.nav-cta')
+  ].filter(Boolean);
+
+  function isOverRedSection(x, y) {
+    return redSections.some(el => {
+      const r = el.getBoundingClientRect();
+      return x >= r.left && x <= r.right && y >= r.top && y <= r.bottom;
+    });
+  }
+
+  document.addEventListener('mousemove', e => {
+    mx = e.clientX; my = e.clientY;
+    cursor.style.left = mx + 'px';
+    cursor.style.top = my + 'px';
+
+    if (isOverRedSection(mx, my)) {
+      cursor.classList.add('cursor-inverted');
+      ring.classList.add('cursor-ring-inverted');
+    } else {
+      cursor.classList.remove('cursor-inverted');
+      ring.classList.remove('cursor-ring-inverted');
+    }
+  });
+
+  function animateRing() {
+    rx += (mx - rx) * 0.15;
+    ry += (my - ry) * 0.15;
+    ring.style.left = rx + 'px';
+    ring.style.top = ry + 'px';
+    requestAnimationFrame(animateRing);
+  }
+  animateRing();
+
+  document.querySelectorAll('a, button, .service-card, .industry-item').forEach(el => {
+    el.addEventListener('mouseenter', () => ring.classList.add('hovered'));
+    el.addEventListener('mouseleave', () => ring.classList.remove('hovered'));
+  });
+
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+  }, { threshold: 0.1 });
+  document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
+
+  document.getElementById('submitBtn').addEventListener('click', function() {
+    this.textContent = 'Message Sent — We\'ll Be In Touch ✓';
+    this.style.background = '#1a5c1a';
+    setTimeout(() => {
+      this.textContent = 'Send It — We\'ll Be In Touch';
+      this.style.background = '';
+    }, 4000);
+  });
+
+  document.querySelectorAll('a[href^="#"]').forEach(a => {
+    a.addEventListener('click', e => {
+      const target = document.querySelector(a.getAttribute('href'));
+      if (target) { e.preventDefault(); target.scrollIntoView({ behavior: 'smooth', block: 'start' }); }
+    });
+  });
+</script>
+</body>
+</html>
