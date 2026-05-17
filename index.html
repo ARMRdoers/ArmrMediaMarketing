@@ -811,7 +811,23 @@
   }
   .form-select option { background: var(--black3); color: var(--white); }
   .form-textarea { resize: vertical; min-height: 120px; line-height: 1.6; }
-  .form-submit {
+  .form-error {
+    display: none;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 1px;
+    color: var(--red);
+    margin-top: 4px;
+  }
+  .form-input.invalid, .form-select.invalid, .form-textarea.invalid {
+    border-color: rgba(208,2,27,0.6);
+  }
+  .form-input.invalid ~ .form-error,
+  .form-select.invalid ~ .form-error,
+  .form-textarea.invalid ~ .form-error {
+    display: block;
+  }
+  .form-submit { 
     font-family: 'Barlow Condensed', sans-serif;
     font-size: 14px;
     font-weight: 700;
@@ -1573,48 +1589,71 @@
       </div>
     </div>
     <div class="contact-form fade-up fade-up-d2">
-      <div class="form-row">
-        <div class="form-group">
-          <label class="form-label">First Name</label>
-          <input type="text" class="form-input" placeholder="First name">
+
+      <!-- SUCCESS STATE -->
+      <div id="formSuccess" style="display:none; background: var(--black3); border: 1px solid rgba(208,2,27,0.3); padding: 48px 40px; text-align: center;">
+        <div style="font-size: 40px; margin-bottom: 16px;">✓</div>
+        <div style="font-family: 'Bebas Neue', sans-serif; font-size: 32px; letter-spacing: 2px; color: var(--white-pure); margin-bottom: 12px;">Message Received</div>
+        <p style="font-size: 15px; font-weight: 300; color: var(--gray-light); line-height: 1.7;">We'll be in touch within 24 hours. Get ready to build your ARMR.</p>
+      </div>
+
+      <!-- FORM -->
+      <form id="contactForm" novalidate>
+        <!-- Formspree honeypot spam filter -->
+        <input type="text" name="_gotcha" style="display:none">
+        <!-- Custom subject line for your inbox -->
+        <input type="hidden" name="_subject" value="New Lead — ARMR Media & Marketing Website">
+
+        <div class="form-row">
+          <div class="form-group">
+            <label class="form-label" for="firstName">First Name *</label>
+            <input type="text" id="firstName" name="first_name" class="form-input" placeholder="First name" required>
+            <span class="form-error" id="err-firstName">Please enter your first name.</span>
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="lastName">Last Name *</label>
+            <input type="text" id="lastName" name="last_name" class="form-input" placeholder="Last name" required>
+            <span class="form-error" id="err-lastName">Please enter your last name.</span>
+          </div>
         </div>
         <div class="form-group">
-          <label class="form-label">Last Name</label>
-          <input type="text" class="form-input" placeholder="Last name">
+          <label class="form-label" for="businessName">Business Name *</label>
+          <input type="text" id="businessName" name="business_name" class="form-input" placeholder="Your Business Name" required>
+          <span class="form-error" id="err-businessName">Please enter your business name.</span>
         </div>
-      </div>
-      <div class="form-group">
-        <label class="form-label">Business Name</label>
-        <input type="text" class="form-input" placeholder="Your Business Name">
-      </div>
-      <div class="form-row">
+        <div class="form-row">
+          <div class="form-group">
+            <label class="form-label" for="email">Email Address *</label>
+            <input type="email" id="email" name="email" class="form-input" placeholder="you@yourbusiness.com" required>
+            <span class="form-error" id="err-email">Please enter a valid email.</span>
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="phone">Phone Number</label>
+            <input type="tel" id="phone" name="phone" class="form-input" placeholder="(XXX) XXX-XXXX">
+          </div>
+        </div>
         <div class="form-group">
-          <label class="form-label">Email Address</label>
-          <input type="email" class="form-input" placeholder="you@yourbusiness.com">
+          <label class="form-label" for="service">Service You're Interested In *</label>
+          <select id="service" name="service" class="form-select" required>
+            <option value="" disabled selected>Select a service...</option>
+            <option>Social Media Management</option>
+            <option>Website Development</option>
+            <option>Content Creation & Production</option>
+            <option>Brand Strategy & Identity</option>
+            <option>Video & Reels Editing</option>
+            <option>Full-Service Package</option>
+            <option>Not Sure — I Need Guidance</option>
+          </select>
+          <span class="form-error" id="err-service">Please select a service.</span>
         </div>
         <div class="form-group">
-          <label class="form-label">Phone Number</label>
-          <input type="tel" class="form-input" placeholder="(XXX) XXX-XXXX">
+          <label class="form-label" for="message">Tell Us About Your Business *</label>
+          <textarea id="message" name="message" class="form-textarea" placeholder="What does your business do? What are your goals? What's not working right now?" required></textarea>
+          <span class="form-error" id="err-message">Please tell us a bit about your business.</span>
         </div>
-      </div>
-      <div class="form-group">
-        <label class="form-label">Service You're Interested In</label>
-        <select class="form-select">
-          <option value="" disabled selected>Select a service...</option>
-          <option>Social Media Management</option>
-          <option>Website Development</option>
-          <option>Content Creation & Production</option>
-          <option>Brand Strategy & Identity</option>
-          <option>Video & Reels Editing</option>
-          <option>Full-Service Package</option>
-          <option>Not Sure — I Need Guidance</option>
-        </select>
-      </div>
-      <div class="form-group">
-        <label class="form-label">Tell Us About Your Business</label>
-        <textarea class="form-textarea" placeholder="What does your business do? What are your goals? What's not working right now?"></textarea>
-      </div>
-      <button type="button" class="form-submit" id="submitBtn">Send It — We'll Be In Touch</button>
+        <button type="submit" class="form-submit" id="submitBtn">Send It — We'll Be In Touch</button>
+        <div id="formNetworkError" style="display:none; margin-top:12px; font-size:13px; color: var(--red); text-align:center;">Something went wrong. Please try again or email us directly at doers@armrstudios.com</div>
+      </form>
     </div>
   </div>
 </section>
@@ -1769,14 +1808,77 @@
   }, { threshold: 0.08 });
   document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
 
-  /* ---- FORM SUBMIT ---- */
-  document.getElementById('submitBtn').addEventListener('click', function() {
-    this.textContent = 'Message Sent — We\'ll Be In Touch ✓';
-    this.style.background = '#1a5c1a';
-    setTimeout(() => {
-      this.textContent = 'Send It — We\'ll Be In Touch';
-      this.style.background = '';
-    }, 4000);
+  /* ---- CONTACT FORM — FORMSPREE ---- */
+  const contactForm = document.getElementById('contactForm');
+  const formSuccess = document.getElementById('formSuccess');
+  const formNetworkError = document.getElementById('formNetworkError');
+  const submitBtn = document.getElementById('submitBtn');
+
+  // ⚠️  REPLACE THIS with your Formspree endpoint after signing up at formspree.io
+  const FORMSPREE_ENDPOINT = 'https://formspree.io/f/mkoengkk';
+
+  const requiredFields = [
+    { id: 'firstName', errId: 'err-firstName' },
+    { id: 'lastName',  errId: 'err-lastName'  },
+    { id: 'businessName', errId: 'err-businessName' },
+    { id: 'email',     errId: 'err-email'     },
+    { id: 'service',   errId: 'err-service'   },
+    { id: 'message',   errId: 'err-message'   },
+  ];
+
+  function validateForm() {
+    let valid = true;
+    requiredFields.forEach(({ id, errId }) => {
+      const el = document.getElementById(id);
+      const err = document.getElementById(errId);
+      const isEmpty = !el.value.trim();
+      const isInvalidEmail = id === 'email' && el.value && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(el.value);
+      if (isEmpty || isInvalidEmail) {
+        el.classList.add('invalid');
+        valid = false;
+      } else {
+        el.classList.remove('invalid');
+      }
+    });
+    return valid;
+  }
+
+  // Clear invalid state on input
+  requiredFields.forEach(({ id }) => {
+    const el = document.getElementById(id);
+    if (el) el.addEventListener('input', () => el.classList.remove('invalid'));
+  });
+
+  contactForm.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    formNetworkError.style.display = 'none';
+
+    if (!validateForm()) return;
+
+    submitBtn.textContent = 'Sending...';
+    submitBtn.disabled = true;
+    submitBtn.style.opacity = '0.7';
+
+    try {
+      const formData = new FormData(contactForm);
+      const response = await fetch(FORMSPREE_ENDPOINT, {
+        method: 'POST',
+        body: formData,
+        headers: { 'Accept': 'application/json' }
+      });
+
+      if (response.ok) {
+        contactForm.style.display = 'none';
+        formSuccess.style.display = 'block';
+      } else {
+        throw new Error('Server error');
+      }
+    } catch (err) {
+      formNetworkError.style.display = 'block';
+      submitBtn.textContent = 'Send It — We\'ll Be In Touch';
+      submitBtn.disabled = false;
+      submitBtn.style.opacity = '';
+    }
   });
 
   /* ---- SMOOTH SCROLL ---- */
