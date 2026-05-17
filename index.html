@@ -4,6 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>ARMR Media & Marketing — ARMR Your Brand</title>
+<link rel="icon" id="favicon" type="image/png" href="">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow:ital,wght@0,300;0,400;0,600;0,700;1,400&family=Barlow+Condensed:wght@400;600;700&display=swap" rel="stylesheet">
 <style>
@@ -1733,6 +1734,7 @@
   document.querySelectorAll('img[src="LOGO_PLACEHOLDER"]').forEach(img => {
     img.src = logoSrc;
   });
+  document.getElementById('favicon').href = logoSrc;
 
   /* ---- TOUCH DETECTION ---- */
   const isTouch = window.matchMedia('(hover: none)').matches || ('ontouchstart' in window);
